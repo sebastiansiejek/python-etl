@@ -10,15 +10,18 @@ if __name__ == "__main__":
     TracksEntity.create_table()
     ListeningSessionsEntity.create_table()
 
+    TRACKS_PATH = "data/unique_tracks.txt"
+    LISTENING_SESSIONS_PATH = "data/triplets_sample_20p.txt"
+
     if len(TracksEntity.select()) == 0:
         start = timer()
-        PrepareTxtFileToDatabase("data/unique_tracks.txt").prepare(callback=add_from_list_to_tracks)
+        PrepareTxtFileToDatabase(TRACKS_PATH).prepare(callback=add_from_list_to_tracks)
         end = timer()
         print(f"Import tracks: {round(end - start, 2)}s")
 
     if len(ListeningSessionsEntity.select()) == 0:
         start = timer()
-        PrepareTxtFileToDatabase("data/triplets_sample_20p.txt").prepare(callback=add_from_list_to_listening_sessions)
+        PrepareTxtFileToDatabase(LISTENING_SESSIONS_PATH).prepare(callback=add_from_list_to_listening_sessions)
         end = timer()
         print(f"Import listening sessions: {round(end - start, 2)}s")
 
