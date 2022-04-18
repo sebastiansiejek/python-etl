@@ -24,3 +24,12 @@ def get_the_most_popular_artist():
              .limit(1))
 
     return query[0]
+
+def get_the_most_popular_tracks():
+    query = (TracksEntity.select(TracksEntity.track_title, peewee.fn.COUNT(TracksEntity.track_title).alias("Count"))
+             .join(ListeningSessionsEntity, on=(ListeningSessionsEntity.track_id == TracksEntity.track_id))
+             .group_by(TracksEntity.track_title)
+             .order_by(peewee.fn.COUNT(TracksEntity.track_title).desc())
+             .limit(5))
+
+    return query

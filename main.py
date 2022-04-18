@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
 from ListeningSessions.ListeningSessionsService import add_from_list_to_listening_sessions
-from services.queries import get_the_most_popular_artist
+from services.queries import get_the_most_popular_artist, get_the_most_popular_tracks
 from tracks.TracksEntity import TracksEntity
 from ListeningSessions.ListeningSessionsEntity import ListeningSessionsEntity
 from services.PrepareTxtFileToDatabase import PrepareTxtFileToDatabase
@@ -23,4 +23,9 @@ if __name__ == "__main__":
         print(f"Import listening sessions: {round(end - start, 2)}s")
 
     the_most_popular_artist = get_the_most_popular_artist()
-    print("Artysta z największą ilością odtworzeń\n", the_most_popular_artist.Artist, " ", the_most_popular_artist.Count)
+    print("Artysta z największą ilością odtworzeń\n", the_most_popular_artist.Artist, ", ", the_most_popular_artist.Count)
+
+    the_most_popular_tracks = get_the_most_popular_tracks()
+    print("Najbardziej pupularne utwory")
+    for track in the_most_popular_tracks:
+        print(track.track_title.replace("\n", ""), track.Count)
