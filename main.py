@@ -8,5 +8,8 @@ if __name__ == "__main__":
     TracksEntity.create_table()
     ListeningSessionsEntity.create_table()
 
-    PrepareTxtFileToDatabase("data/unique_tracks.txt").prepare(callback=add_from_list_to_tracks)
-    PrepareTxtFileToDatabase("data/triplets_sample_20p.txt").prepare(callback=add_from_list_to_listening_sessions)
+    if len(TracksEntity.select()) == 0:
+        PrepareTxtFileToDatabase("data/unique_tracks.txt").prepare(callback=add_from_list_to_tracks)
+
+    if len(ListeningSessionsEntity.select()) == 0:
+        PrepareTxtFileToDatabase("data/triplets_sample_20p.txt").prepare(callback=add_from_list_to_listening_sessions)
