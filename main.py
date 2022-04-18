@@ -1,3 +1,4 @@
+from timeit import default_timer as timer
 from ListeningSessions.ListeningSessionsService import add_from_list_to_listening_sessions
 from tracks.TracksEntity import TracksEntity
 from ListeningSessions.ListeningSessionsEntity import ListeningSessionsEntity
@@ -9,7 +10,14 @@ if __name__ == "__main__":
     ListeningSessionsEntity.create_table()
 
     if len(TracksEntity.select()) == 0:
+        start = timer()
         PrepareTxtFileToDatabase("data/unique_tracks.txt").prepare(callback=add_from_list_to_tracks)
+        end = timer()
+        print(f"Import tracks: {round(end - start, 2)}s")
 
     if len(ListeningSessionsEntity.select()) == 0:
+        start = timer()
         PrepareTxtFileToDatabase("data/triplets_sample_20p.txt").prepare(callback=add_from_list_to_listening_sessions)
+        end = timer()
+        print(f"Import listening sessions: {round(end - start, 2)}s")
+
